@@ -28,30 +28,23 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
+                                        <th scope="col">Nama Pasien</th>
+                                        <th scope="col">Poli</th>
+                                        <th scope="col">Fasilitas Kesehatan</th>
+                                        <th scope="col">Sumber Data</th>
+                                        <th scope="col">No Pendaftaran</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($data as $row)
                                     <tr>
-                                        <th scope="row">1</th>
+                                        <th scope="row">{{$loop->iteration}}</th>
                                         <td>Mark</td>
                                         <td>Otto</td>
                                         <td>@mdo</td>
+                                        <td></td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

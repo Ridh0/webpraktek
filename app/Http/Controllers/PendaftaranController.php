@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pasien;
+use App\Models\Pelayanan;
 use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,8 @@ class PendaftaranController extends Controller
      */
     public function index()
     {
-        return view('admin.pendaftaran.index');
+        $data = Pendaftaran::all();
+        return view('admin.pendaftaran.index',compact('data'));
     }
 
     /**
@@ -22,9 +25,21 @@ class PendaftaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('admin.pendaftaran.create');
+        $search = $request->input('search');
+        $posts = Pasien::where('no_pendaftaran',$search)->get() ;
+        $datasearch =$search;
+        if($search){
+            $pelayanan = Pelayanan::query()
+            ->where('no_pendaftaran', 'LIKE', "%{$search}%")
+            ->get();
+            $datasearch =$search;
+            $posts = Pasien::query()
+            ->where('no_pendaftaran', 'LIKE', "%{$search}%")
+            ->get();
+        }
+        return view('admin.pendaftaran.create',compact('posts','datasearch'));
 
     }
 
@@ -36,7 +51,26 @@ class PendaftaranController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nama' => 'nullable',
+            'pasien_id' => 'nullable',
+            'tgl_daftar' => 'nullable',
+            'poli' => 'nullable',
+            'faskes' => 'nullable',
+            'sumber_data' => 'nullable',
+            'no_pendaftaran' => 'nullable',
+        ]);
+       
+        Pendaftaran::create([
+           'tgl_daftar' => $request->tgl_daftar,
+            'poli' => $request->poli,
+            'faskes' => $request->faskes,
+            'sumber_data' => $request->sumber_data,
+            'no_pendaftaran' => $request->search,
+            'pasien_id' => $request->pasien_id,
+            'nama' => $request->nama,
+        ]);
+        return back()->with('success','ss' );
     }
 
     /**

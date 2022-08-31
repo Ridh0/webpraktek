@@ -38,6 +38,12 @@
                                     <input type="text" name="nama" class="form-control" id="inputPassword3" placeholder="Nama">
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-2 col-form-label">No Pendaftaran</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="no_pendaftaran" value="{{$no_pendaftaran}}" class="form-control" id="inputPassword3" placeholder="Nama">
+                                </div>
+                            </div>
                             <fieldset class="form-group">
                                 <div class="row">
                                     <legend class="col-form-label col-sm-2 pt-0">Kelamin</legend>

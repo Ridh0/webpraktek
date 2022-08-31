@@ -26,7 +26,14 @@ class PasienController extends Controller
      */
     public function create()
     {
-        return view('admin.pasien.create');
+        $pasien = Pasien::all();
+        $no_pendaftaran =1;
+        foreach($pasien as $row){
+            
+            $id = $row->no_pendaftaran;
+            $no_pendaftaran = $id + 1 ;
+        }
+        return view('admin.pasien.create',compact('no_pendaftaran'));
     }
 
     /**
@@ -39,6 +46,7 @@ class PasienController extends Controller
     {
         $this->validate($request, [
             'nama' => 'required',
+            'no_pendaftaran' => 'required',
             'bpjs' => 'required',
             'tgl' => 'required',
             'kelamin' => 'required',
@@ -50,6 +58,7 @@ class PasienController extends Controller
            'nama' => $request->nama,
             'bpjs' => $request->bpjs,
             'tgl' => $request->tgl,
+            'no_pendaftaran' => $request->no_pendaftaran,
             'kelamin' => $request->kelamin,
             'nohp' => $request->nohp,
             'rekam_medis' => $request->rekam_medis,

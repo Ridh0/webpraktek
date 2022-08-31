@@ -15,6 +15,7 @@ class CreatePasiensTable extends Migration
     {
         Schema::create('pasiens', function (Blueprint $table) {
             $table->id();
+            $table->integer('no_pendaftaran')->nullable();
             $table->string('nama')->nullable();
             $table->string('bpjs')->nullable();
             $table->string('tgl')->nullable();

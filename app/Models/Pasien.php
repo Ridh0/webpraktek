@@ -10,6 +10,7 @@ class Pasien extends Model
     use HasFactory;
 
     protected $fillable = [
+       'no_pendaftaran',
        'nama',
        'bpjs',
        'tgl',
