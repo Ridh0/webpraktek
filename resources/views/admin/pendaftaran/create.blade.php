@@ -29,24 +29,24 @@
                                     @csrf
                                     @method('post')
                                     <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Tanggal Daftar</label>
+                                        <label for="inputtanggaldaftar" class="col-sm-3 col-form-label">Tanggal Daftar</label>
                                         <div class="col-sm-9">
-                                            <input type="date" name="tgl_daftar" class="form-control" id="inputEmail3" placeholder="No BPJS">
+                                            <input type="date" name="tgl_daftar" class="form-control" id="inputtanggaldaftar" placeholder="No BPJS">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Poli</label>
+                                        <label for="inputpoli" class="col-sm-3 col-form-label">Poli</label>
                                         <div class="col-sm-9">
-                                            <select name="poli" id="" class="form-control">
+                                            <select name="poli" id="inputpoli" class="form-control">
                                                 <option value="Poli Umum">Poli Umum</option>
                                                 <option value="Poli Khusus">Poli Khusus</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Faskes</label>
+                                        <label for="inputfaskes" class="col-sm-3 col-form-label">Faskes</label>
                                         <div class="col-sm-9">
-                                            <select name="faskes" id="" class="form-control">
+                                            <select name="faskes" id="inputfaskes" class="form-control">
                                                 <option value="driconhorizon">dr.Icon Horizon (009OU074)</option>
                                             </select>
                                         </div>
@@ -71,6 +71,9 @@
                                             </div>
                                         </div>
                                     </fieldset>
+                                    @if($posts->isNotEmpty())
+                                    <input type="hidden" name="no_pendaftaran" value="{{$datasearch}}">
+                                    @endif
                                 </form>
 
                                 <div class="form-group row">
@@ -88,7 +91,7 @@
                                     </div>
                                 </div>
                                 @if($posts->isNotEmpty())
-                                <input type="text" value="{{$datasearch}}">
+                                <input type="text" name="no_pendaftaran" value="{{$datasearch}}">
                                 @foreach ($posts as $post)
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-3 col-form-label">No.Kartu BPJS</label>
@@ -146,21 +149,22 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" id="pendaftaran-form" action="{{route('pendaftaran.store')}}">
+                                <form method="post" id="pendaftaran-form" action="{{route('pelayanan.store')}}">
                                     @csrf
                                     @method('post')
                                     <fieldset class="form-group">
+                                        <input type="text" name="pendaftaran_id" class="form-control" value="{{$pid}}">
                                         <div class="row">
                                             <legend class="col-form-label col-sm-3 fw-bold">Jenis Kunjungan</legend>
                                             <div class="col-sm-9 d-flex">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="sumber_data" id="gridRadiossakit" value="No Antrian">
+                                                    <input class="form-check-input" type="radio" name="jenis_kunjungan" id="gridRadiossakit" value="Kunjungan Sakit">
                                                     <label class="form-check-label" for="gridRadiossakit">
                                                         Kunjungan Sakit
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="sumber_data" id="gridRadiossehat" value="No Kartu">
+                                                    <input class="form-check-input" type="radio" name="jenis_kunjungan" id="gridRadiossehat" value="Kunjungan Sehat">
                                                     <label class="form-check-label" for="gridRadiossehat">
                                                         Kunjungan Sehat
                                                     </label>
@@ -173,19 +177,19 @@
                                             <legend class="col-form-label col-sm-3 fw-bold">Perawatan</legend>
                                             <div class="col-sm-9 d-flex">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="sumber_data" id="gridRadiosjalan" value="No Antrian">
+                                                    <input class="form-check-input" type="radio" name="perawatan" id="gridRadiosjalan" value="Rawat Jalan">
                                                     <label class="form-check-label" for="gridRadiosjalan">
                                                         Rawat Jalan
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="sumber_data" id="gridRadiosinap" value="No Kartu">
+                                                    <input class="form-check-input" type="radio" name="perawatan" id="gridRadiosinap" value="Rawat Inap">
                                                     <label class="form-check-label" for="gridRadiosinap">
                                                         Rawat Inap
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="sumber_data" id="gridRadiospreventif" value="No Kartu">
+                                                    <input class="form-check-input" type="radio" name="perawatan" id="gridRadiospreventif" value="Promotif Preventif">
                                                     <label class="form-check-label" for="gridRadiospreventif">
                                                         Promotif Preventif
                                                     </label>
@@ -198,8 +202,8 @@
                                         <div class="col-sm-9">
                                             <div class="input-group mb-3">
 
-                                                <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-                                                <input type="time" class="form-control" id="appt" name="appt" min="09:00" max="18:00">
+                                                <input type="date" name="tgl_kunjungan" value="<?php echo date('Y-m-d'); ?>" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                                                <input type="time" name="wkt_kunjungan" class="form-control" id="appt" name="appt" min="09:00" max="18:00">
 
                                             </div>
                                         </div>
@@ -213,59 +217,253 @@
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-3 col-form-label">Keluhan</label>
                                         <div class="col-sm-9">
-                                            <textarea name="" id="" cols="40" rows="2"></textarea>
+                                            <textarea name="keluhan" id="" class="form-control" cols="40" rows="2"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-3 col-form-label">Anamnesa</label>
                                         <div class="col-sm-9">
-                                            <textarea name="" id="" cols="40" rows="2"></textarea>
+                                            <textarea name="anamnesa" id="" class="form-control" cols="40" rows="2"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Anamnesa</label>
+                                        <label class="col-sm-3 col-form-label" for="autoSizingInputGroup">Riwayat Alergi</label>
                                         <div class="col-sm-9">
-                                            <textarea name="" id="" cols="40" rows="2"></textarea>
+                                            <div class="input-group">
+                                                <div class="input-group-text">Makanan</div>
+                                                <select name="alergi_makanan" class="form-control" id="">
+                                                    <option value="1">1</option>
+                                                    <option value="1">2</option>
+                                                    <option value="1">3</option>
+                                                </select>
+                                            </div>
+                                            <div class="input-group mt-3">
+                                                <div class="input-group-text">Udara</div>
+                                                <select name="alergi_udara" class="form-control" id="">
+                                                    <option value="1">1</option>
+                                                    <option value="1">2</option>
+                                                    <option value="1">3</option>
+                                                </select>
+                                            </div>
+                                            <div class="input-group mt-3">
+                                                <div class="input-group-text">Obat-obatan</div>
+                                                <select name="alergi_obat" class="form-control" id="">
+                                                    <option value="1">1</option>
+                                                    <option value="1">2</option>
+                                                    <option value="1">3</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                    
                                     <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Poli</label>
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Prognosa</label>
                                         <div class="col-sm-9">
-                                            <select name="poli" id="" class="form-control">
-                                                <option value="Poli Umum">Poli Umum</option>
-                                                <option value="Poli Khusus">Poli Khusus</option>
+                                            <select name="prognosa" id="" class="form-control">
+                                                <option value="Example 1">Example 1</option>
+                                                <option value="Example 2">Example 2</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                  
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Terapi Obat</label>
+                                        <div class="col-sm-9">
+                                            <textarea name="terapi_obat" id="" class="form-control" cols="40" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Terapi Non Obat</label>
+                                        <div class="col-sm-9">
+                                            <textarea name="terapi_nonobat" id="" class="form-control" cols="40" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">BMHP</label>
+                                        <div class="col-sm-9">
+                                            <textarea name="bmhp" id="" class="form-control" cols="40" rows="2"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Diagnosa</label>
+                                        <div class="col-sm-9">
+                                            <textarea name="diagnosa" id="" class="form-control" cols="40" rows="2"></textarea>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input"  type="checkbox" value="1">
+                                                    <span class="form-check-sign">Peserta berpotensi menderita penyakit akibat kerja</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Diagnosa #2 <br> (Sekunder)</label>
+                                        <div class="col-sm-9">
+                                            <textarea name="diagnosa_dua" id="" class="form-control" cols="40" rows="2"></textarea>
+                                           
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Diagnosa #3 <br> (Sekunder)</label>
+                                        <div class="col-sm-9">
+                                            <textarea name="diagnosa_tiga" id="" class="form-control" cols="40" rows="2"></textarea>
+                                           
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Kesadaran</label>
+                                        <div class="col-sm-9">
+                                            <select name="kesadaran" id="" class="form-control">
+                                                <option value="Example 1">Example 1</option>
+                                                <option value="Example 2">Example 2</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Faskes</label>
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Suhu</label>
                                         <div class="col-sm-9">
-                                            <select name="faskes" id="" class="form-control">
-                                                <option value="driconhorizon">dr.Icon Horizon (009OU074)</option>
-                                            </select>
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="suhu" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">&deg;C</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Pemeriksaan Fisik</label>
+                                        <div class="col-sm">
+                                            <label for="inputEmail">Tinggi Badan</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="pemeriksaan_tinggi" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">cm</span>
+                                                </div>
+                                            </div>
+                                            <label for="inputEmail">Lingkar Perut</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="pemeriksaan_lingkar" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">cm</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm">
+                                            <label for="inputEmail">Berat Badan</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="pemeriksaan_berat" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">kg</span>
+                                                </div>
+                                            </div>
+                                            <label for="inputEmail">IMT</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="pemeriksaan_imt" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">kg/m2</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Pemeriksaan Fisik</label>
+                                        <div class="col-sm">
+                                            <label for="inputEmail">Sistole</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="td_sistole" class="form-control" aria-label="Username" aria-describedby="basic-addon1-addon1">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">cm</span>
+                                                </div>
+                                            </div>
+                                            <label for="inputEmail">Diastole</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="td_diastole" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">cm</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm">
+                                            <label for="inputEmail">Respiratory Rate</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="td_respiratory" class="form-control" aria-label="Username" aria-describedby="basic-addon1-addon1">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">kg</span>
+                                                </div>
+                                            </div>
+                                            <label for="inputEmail">Heart Rate</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" name="td_heartrate" class="form-control" aria-label="Username" aria-describedby="basic-addon1-addon1">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">kg/m2</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <fieldset class="form-group">
                                         <div class="row">
 
-                                            <legend class="col-form-label col-sm-3 fw-bold">Sumber Data</legend>
-                                            <div class="col-sm-9 d-flex">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="sumber_data" id="gridRadios1" value="No Antrian">
-                                                    <label class="form-check-label" for="gridRadios1">
-                                                        No Antrian
-                                                    </label>
+                                            <legend class="col-form-label col-sm-3 fw-bold">Kasus KLL</legend>
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" name="kasus_kll" data-toggle='collapse' data-target='#collapsediv1' type="checkbox" value="">
+                                                    <span class="form-check-sign">Kecelakaan Lalu Lintas</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="collapse" id="collapsediv1">
+                                            <div class="card card-body">
+                                                <div class="form-group row">
+                                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Tanggal Kejadian</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="date" name="tanggal_kejadian" class="form-control" id="">
+                                                    </div>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="sumber_data" id="gridRadios2" value="No Kartu">
-                                                    <label class="form-check-label" for="gridRadios2">
-                                                        No Kartu
-                                                    </label>
+                                                <div class="form-group row">
+                                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Lokasi Kejadian</label>
+                                                    <div class="col-sm-9">
+                                                        <textarea name="lokasi_kejadian" id="" class="form-control" cols="40" rows="2"></textarea>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+
                                     </fieldset>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Tenaga Medis</label>
+                                        <div class="col-sm-9">
+                                            <select name="tenaga_medis" id="" class="form-control">
+                                                <option>Pilih Tenaga Medis</option>
+                                                <option value="1">22</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-4 col-form-label">Pelayanan Non Kapitasi</label>
+                                        <div class="col-sm-9">
+                                            <style>
+                                                textarea {
+                                                    font-size: 15px;
+                                                    width: 100%;
+                                                }
+                                            </style>
+                                            <textarea name="pelayanan_non_kapitasi" class="form-control" id="" cols="30" rows="10"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Status Pulang</label>
+                                        <div class="col-sm-9">
+                                            <select name="status_pulang" id="" class="form-control">
+                                                <option></option>
+                                                <option value="1">Pulang</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                    <div class="col-sm-10">
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
+                                </div>
                                 </form>
 
                             </div>

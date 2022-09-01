@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+@include('sweetalert::alert')
 <div class="content">
     <div class="panel-header bg-primary-gradient">
         <div class="page-inner py-5">
@@ -28,6 +29,7 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">#</th>
+                                        <th scope="col">aksi</th>
                                         <th scope="col">Nama Pasien</th>
                                         <th scope="col">Poli</th>
                                         <th scope="col">Fasilitas Kesehatan</th>
@@ -39,10 +41,17 @@
                                     @foreach($data as $row)
                                     <tr>
                                         <th scope="row">{{$loop->iteration}}</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td></td>
+                                        <td>
+                                            <div class="d-flex">
+                                             <a href="{{route('pendaftaran.edit',$row)}}" class="btn btn-sm btn-primary mr-2">Edit</a>
+                                             <a href="{{route('pendaftaran.hapus',$row)}}" class="btn btn-sm btn-primary show_confirm">Hapus</a>
+                                            </div>
+                                        </td>
+                                        <td>{{($row->pasien_id != null) ? $row->pasien->nama :''}}</td>
+                                        <td>{{$row->poli}}</td>
+                                        <td>{{$row->faskes}}</td>
+                                        <td>{{$row->sumber_data}}</td>
+                                        <td>{{$row->no_pendaftaran}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -55,4 +64,24 @@
 
     </div>
 </div>
+@endsection
+@section('scripts')
+<script>
+        $(document).ready(function() {
+        $('.show_confirm').on('click', function(event) {
+            event.preventDefault();
+            const url = $(this).attr('href');
+            swal({
+                title: 'Are you sure?',
+                text: 'This record and it`s details will be permanantly deleted!',
+                icon: 'warning',
+                buttons: ["Cancel", "Yes!"],
+            }).then(function(value) {
+                if (value) {
+                    window.location.href = url;
+                }
+            });
+        });
+    });
+</script>
 @endsection

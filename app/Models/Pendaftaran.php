@@ -17,4 +17,10 @@ class Pendaftaran extends Model
         'sumber_data',
         'no_pendaftaran',
      ];
+
+     public function pasien()
+     {
+         return $this->belongsTo(Pasien::class);
+
+     }
 }

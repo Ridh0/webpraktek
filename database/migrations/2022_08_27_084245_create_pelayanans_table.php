@@ -25,6 +25,9 @@ class CreatePelayanansTable extends Migration
             $table->string('tanggal_kunjungan')->nullable();
             $table->string('keluhan')->nullable();
             $table->string('anamnesa')->nullable();
+            $table->string('alergi_makanan')->nullable();
+            $table->string('alergi_udara')->nullable();
+            $table->string('alergi_obat')->nullable();
             $table->string('riwayat_alergi')->nullable();
             $table->string('prognosa')->nullable();
             $table->string('terapi_obat')->nullable();
@@ -35,8 +38,14 @@ class CreatePelayanansTable extends Migration
             $table->string('diagnosa_tiga')->nullable();
             $table->string('kesadaran')->nullable();
             $table->string('suhu')->nullable();
-            $table->string('pemeriksaan')->nullable();
-            $table->string('tekanan_darah')->nullable();
+            $table->string('pemeriksaan_tinggi')->nullable();
+            $table->string('pemeriksaan_berat')->nullable();
+            $table->string('pemeriksaan_lingkar')->nullable();
+            $table->string('pemeriksaan_imt')->nullable();
+            $table->string('td_sistole')->nullable();
+            $table->string('td_diastole')->nullable();
+            $table->string('td_respiratory')->nullable();
+            $table->string('td_heartrate')->nullable();
             $table->string('kasus_kll')->nullable();
             $table->string('tanggal_kejadian')->nullable();
             $table->string('lokasi_kejadian')->nullable();

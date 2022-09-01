@@ -30,11 +30,14 @@ Route::get('/pasien/hapus/{pasien}', [App\Http\Controllers\PasienController::cla
 
 Route::get('/pelayanan', [App\Http\Controllers\PelayananController::class, 'index'])->name('pelayanan');
 Route::get('/pelayanan/tambah', [App\Http\Controllers\PelayananController::class, 'create'])->name('pelayanan.create');
-Route::get('/pelayanan/store', [App\Http\Controllers\PelayananController::class, 'store'])->name('pelayanan.store');
+Route::post('/pelayanan/store', [App\Http\Controllers\PelayananController::class, 'store'])->name('pelayanan.store');
 
 Route::get('/pendaftaran', [App\Http\Controllers\PendaftaranController::class, 'index'])->name('pendaftaran');
 Route::get('/pendaftaran/tambah', [App\Http\Controllers\PendaftaranController::class, 'create'])->name('pendaftaran.create');
 Route::post('/pendaftaran/store', [App\Http\Controllers\PendaftaranController::class, 'store'])->name('pendaftaran.store');
+Route::get('/pendaftaran/edit/{pendaftaran}', [App\Http\Controllers\PendaftaranController::class, 'edit'])->name('pendaftaran.edit');
+Route::put('/pendaftaran/update', [App\Http\Controllers\PendaftaranController::class, 'update'])->name('pendaftaran.update');
+Route::get('/pendaftaran/hapus/{pendaftaran}', [App\Http\Controllers\PendaftaranController::class, 'hapus'])->name('pendaftaran.hapus');
 
 Auth::routes();
 

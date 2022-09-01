@@ -8,10 +8,9 @@
     <link rel="icon" href="../assets/img/icon.ico" type="image/x-icon" />
 
     <!-- Fonts and icons -->
-    <script src="../assets/js/plugin/webfont/webfont.min.js"></script>
+    <script src="{{asset('assets/js/plugin/webfont/webfont.min.js')}}"></script>
     <script src="{{ asset('assets/img/icon.ico') }}"></script>
     <script src="{{ asset('assets/js/plugin/webfont/webfont.min.js') }}"></script>
-    <link rel="stylesheet" href="http://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 
     <script>
         WebFont.load({
@@ -20,7 +19,7 @@
             },
             custom: {
                 "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"],
-                urls: ['../assets/css/fonts.min.css']
+                urls: ['http://127.0.0.1:8000/assets/css/fonts.min.css']
             },
             active: function() {
                 sessionStorage.fonts = true;
@@ -43,7 +42,7 @@
             <div class="logo-header" data-background-color="blue">
 
                 <a href="index.html" class="logo">
-                    <img src="../assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
+                    <img src="{{asset('assets/img/logo.svg')}}" alt="navbar brand" class="navbar-brand">
                 </a>
                 <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon">
@@ -80,37 +79,78 @@
     </div>
     <!--   Core JS Files   -->
     <script src="{{asset('assets/js/core/jquery.3.2.1.min.js')}}"></script>
-    <script src="../assets/js/core/popper.min.js"></script>
-    <script src="../assets/js/core/bootstrap.min.js"></script>
-    <script>
-        $(document).ready(function() {
-        $('.show_confirm').on('click', function(event) {
-            event.preventDefault();
-            const url = $(this).attr('href');
-            swal({
-                title: 'Are you sure?',
-                text: 'This record and it`s details will be permanantly deleted!',
-                icon: 'warning',
-                buttons: ["Cancel", "Yes!"],
-            }).then(function(value) {
-                if (value) {
-                    window.location.href = url;
-                }
-            });
+    <script src="{{asset('assets/js/atlantis.min.js')}}"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+
+        $("#foreign_checkbox").click(function() {
+            if($('#foreign_checkbox').is(':checked')) { 
+                $('#collapseExamples').collapsing ();
+            } else {
+                $('#collapseExamples').collapse ();
+            }
+        });
+
+        $('#additional_foreign').click(function() {
+            alert('This click function works');
         });
     });
 </script>
+    <script>
+        if( $('#el')[0].checked ){ 
+    alert("Checkbox is checked!");
+}
+
+// Using get
+if( $('#el').get(0).checked ){
+    alert("Checkbox is checked!");
+}
+        if ($('#el').attr('checked')) {
+            alert("Is checked!");
+        }
+        if( $('#el:checked').length)  {
+    alert('Is checked!');
+}
+const alertStatus = (e) => {
+  if ($("#el").is(":checked")) {
+    alert("Is checked");
+  } else {
+    alert("Is not checked");
+  }
+};
+
+// Attaching the click event on the button
+    </script>
+    <script src="{{asset('assets/js/core/popper.min.js')}}"></script>
+    <script src="{{asset('assets/js/core/bootstrap.min.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.show_confirm').on('click', function(event) {
+                event.preventDefault();
+                const url = $(this).attr('href');
+                swal({
+                    title: 'Are you sure?',
+                    text: 'This record and it`s details will be permanantly deleted!',
+                    icon: 'warning',
+                    buttons: ["Cancel", "Yes!"],
+                }).then(function(value) {
+                    if (value) {
+                        window.location.href = url;
+                    }
+                });
+            });
+        });
+    </script>
     @stack('scripts')
 
     @yield('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 
     <!-- jQuery UI -->
-    <script src="../assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-    <script src="../assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+    <script src="{{asset('assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js')}}"></script>
+    <script src="{{asset('assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js')}}"></script>
 
     <!-- jQuery Scrollbar -->
-    <script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="{{asset('assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js')}}"></script>
 
 
     <!-- Chart JS -->
@@ -123,7 +163,7 @@
     <script src="../assets/js/plugin/chart-circle/circles.min.js"></script>
 
     <!-- Datatables -->
-    <script src="../assets/js/plugin/datatables/datatables.min.js"></script>
+    <script src="{{asset('assets/js/plugin/datatables/datatables.min.js')}}"></script>
 
     <!-- Bootstrap Notify -->
     <script src="../assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
@@ -133,10 +173,9 @@
     <script src="../assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
 
     <!-- Sweet Alert -->
-    <script src="../assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+    <script src="{{asset('assets/js/plugin/sweetalert/sweetalert.min.js')}}"></script>
 
     <!-- Atlantis JS -->
-    <script src="../assets/js/atlantis.min.js"></script>
 
     <!-- Atlantis DEMO methods, don't include it in your project! -->
     <script src="../assets/js/setting-demo.js"></script>
@@ -235,10 +274,9 @@
             fillColor: 'rgba(255, 165, 52, .14)'
         });
     </script>
-    <script src="http://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#datatble').DataTable();
+            $('#datatable').DataTable();
         });
     </script>
 </body>

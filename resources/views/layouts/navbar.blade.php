@@ -2,12 +2,12 @@
 
     <div class="container-fluid">
         <div class="collapse" id="search-nav">
-           <h2 class="text-white">Admin </h2>
+            <h2 class="text-white">Admin </h2>
         </div>
         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-            
-          
-        
+
+
+
             <li class="nav-item dropdown hidden-caret">
                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                     <div class="avatar-sm">

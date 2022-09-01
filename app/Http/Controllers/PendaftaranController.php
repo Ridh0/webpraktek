@@ -6,6 +6,7 @@ use App\Models\Pasien;
 use App\Models\Pelayanan;
 use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PendaftaranController extends Controller
 {
@@ -16,7 +17,7 @@ class PendaftaranController extends Controller
      */
     public function index()
     {
-        $data = Pendaftaran::all();
+        $data = Pendaftaran::with('pasien')->get();
         return view('admin.pendaftaran.index',compact('data'));
     }
 
@@ -31,15 +32,15 @@ class PendaftaranController extends Controller
         $posts = Pasien::where('no_pendaftaran',$search)->get() ;
         $datasearch =$search;
         if($search){
-            $pelayanan = Pelayanan::query()
-            ->where('no_pendaftaran', 'LIKE', "%{$search}%")
-            ->get();
+
             $datasearch =$search;
             $posts = Pasien::query()
             ->where('no_pendaftaran', 'LIKE', "%{$search}%")
             ->get();
         }
-        return view('admin.pendaftaran.create',compact('posts','datasearch'));
+        $pendaftaran = Pendaftaran::latest()->first();
+            $pid = $pendaftaran->id;
+        return view('admin.pendaftaran.create',compact('posts','datasearch','pendaftaran','pid'));
 
     }
 
@@ -66,10 +67,12 @@ class PendaftaranController extends Controller
             'poli' => $request->poli,
             'faskes' => $request->faskes,
             'sumber_data' => $request->sumber_data,
-            'no_pendaftaran' => $request->search,
+            'no_pendaftaran' => $request->no_pendaftaran,
             'pasien_id' => $request->pasien_id,
             'nama' => $request->nama,
         ]);
+    
+
         return back()->with('success','ss' );
     }
 
@@ -92,7 +95,8 @@ class PendaftaranController extends Controller
      */
     public function edit(Pendaftaran $pendaftaran)
     {
-        //
+        $pasien = Pasien::all();
+        return view('admin.pendaftaran.edit',compact('pendaftaran','pasien'));
     }
 
     /**
@@ -104,7 +108,29 @@ class PendaftaranController extends Controller
      */
     public function update(Request $request, Pendaftaran $pendaftaran)
     {
-        //
+        $this->validate($request, [
+            'nama' => 'nullable',
+            'pasien_id' => 'nullable',
+            'tgl_daftar' => 'nullable',
+            'poli' => 'nullable',
+            'faskes' => 'nullable',
+            'sumber_data' => 'nullable',
+            'no_pendaftaran' => 'nullable',
+        ]);
+        $data = Pendaftaran::find($request->id);
+
+        $data->update([
+           'tgl_daftar' => $request->tgl_daftar,
+            'poli' => $request->poli,
+            'faskes' => $request->faskes,
+            'sumber_data' => $request->sumber_data,
+            'no_pendaftaran' => $request->no_pendaftaran,
+            'pasien_id' => $request->pasien_id,
+            'nama' => $request->nama,
+        ]);
+       
+         Alert::success('Berhasil', 'Berhasil Mengubah Data !');
+        return back()->with('success');
     }
 
     /**
@@ -113,8 +139,11 @@ class PendaftaranController extends Controller
      * @param  \App\Models\Pendaftaran  $pendaftaran
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pendaftaran $pendaftaran)
+    public function hapus( $pendaftaran)
     {
-        //
+        $data = Pendaftaran::find($pendaftaran);
+        $data->delete();
+        Alert::success('Berhasil', 'Berhasil Menghapus Data !');
+        return back()->with('success', "Data telah berhasil dideleted !!."); 
     }
 }
