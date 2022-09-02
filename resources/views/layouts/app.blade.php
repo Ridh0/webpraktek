@@ -276,7 +276,15 @@ const alertStatus = (e) => {
     </script>
     <script>
         $(document).ready(function() {
-            $('#datatable').DataTable();
+            $('#datatable').DataTable(
+                {
+                    scrollY:        300,
+        scrollCollapse: true,
+          scroller:       true,
+        scrollX: true,
+        fixedHeader: true
+                }
+            );
         });
     </script>
 </body>

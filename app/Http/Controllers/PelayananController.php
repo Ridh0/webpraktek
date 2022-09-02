@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Pelayanan;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PelayananController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,8 @@ class PelayananController extends Controller
      */
     public function index()
     {
-        return view('admin.pelayanan.index');
+        $data = Pelayanan::with('pasien')->with('pendaftaran')->get();
+        return view('admin.pelayanan.index',compact('data'));
     }
 
     /**
@@ -45,7 +51,8 @@ class PelayananController extends Controller
             'pendaftaran_id' => $request->  pendaftaran_id ,
             'perawatan' => $request->   perawatan ,
             'poli' => $request-> poli ,
-            'tanggal_kunjungan' => $tanggal_kunjungan ,
+            'tanggal_kunjungan' => $request->tgl_kunjungan ,
+            'waktu_kunjungan' => $request->wkt_kunjungan ,
             'keluhan' => $request-> keluhan ,
             'anamnesa' => $request-> anamnesa ,
             'alergi_makanan' => $request-> alergi_makanan ,
@@ -100,7 +107,7 @@ class PelayananController extends Controller
      */
     public function edit(Pelayanan $pelayanan)
     {
-        //
+        return view('admin.pelayanan.edit',compact('pelayanan'));
     }
 
     /**
@@ -112,7 +119,52 @@ class PelayananController extends Controller
      */
     public function update(Request $request, Pelayanan $pelayanan)
     {
-        //
+        $this->validate($request, [
+            'jenis_kunjungan' => 'nullable',
+        ]);
+        $data = Pelayanan::find($request->id);
+
+        $data->update([
+            'jenis_kunjungan' => $request-> jenis_kunjungan ,
+            'pasien_id' => $request->   pasien_id ,
+            'pendaftaran_id' => $request->  pendaftaran_id ,
+            'perawatan' => $request->   perawatan ,
+            'poli' => $request-> poli ,
+            'tanggal_kunjungan' => $request->tgl_kunjungan ,
+            'waktu_kunjungan' => $request->wkt_kunjungan ,
+            'keluhan' => $request-> keluhan ,
+            'anamnesa' => $request-> anamnesa ,
+            'alergi_makanan' => $request-> alergi_makanan ,
+            'alergi_udara' => $request-> alergi_udara ,
+            'alergi_obat' => $request-> alergi_obat ,
+            'riwayat_alergi' => $request->  riwayat_alergi ,
+            'prognosa' => $request-> prognosa ,
+            'terapi_obat' => $request-> terapi_obat ,
+            'terapi_nonobat' => $request-> terapi_nonobat ,
+            'bmhp' => $request-> bmhp ,
+            'diagnosa' => $request-> diagnosa ,
+            'diagnosa_dua' => $request-> diagnosa_dua ,
+            'diagnosa_tiga' => $request-> diagnosa_tiga ,
+            'kesadaran' => $request-> kesadaran ,
+            'suhu' => $request-> suhu ,
+            'pemeriksaan_tinggi' => $request-> pemeriksaan_tinggi ,
+            'pemeriksaan_berat' => $request-> pemeriksaan_berat ,
+            'pemeriksaan_lingkar' => $request-> pemeriksaan_lingkar ,
+            'pemeriksaan_imt' => $request-> pemeriksaan_imt ,
+            'td_sistole' => $request-> td_sistole,
+            'td_diastole' => $request-> td_diastole ,
+            'td_respiratory' => $request-> td_respiratory ,
+            'td_heartrate' => $request-> td_heartrate ,
+            'kasus_kll' => $request-> kasus_kll ,
+            'tanggal_kejadian' => $request-> tanggal_kejadian ,
+            'lokasi_kejadian' => $request-> lokasi_kejadian ,
+            'tenaga_medis' => $request-> tenaga_medis ,
+            'pelayanan_non_kapitasi' => $request-> pelayanan_non_kapitasi ,
+            'status_pulang' => $request-> status_pulang ,
+        ]);
+    
+        Alert::success('Berhasil', 'Berhasil Mengubah Data !');
+        return back()->with('success','ss' );
     }
 
     /**

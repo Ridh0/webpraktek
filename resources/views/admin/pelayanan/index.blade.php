@@ -28,30 +28,91 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">First</th>
-                                        <th scope="col">Last</th>
-                                        <th scope="col">Handle</th>
+                                        <th scope="col">Aksi</th>
+                                        <th scope="col">Jenis Kunjungan</th>
+                                        <th scope="col">Nama Pasien</th>
+                                        <th scope="col">No Pendaftaran</th>
+                                        <th scope="col">Perawatan</th>
+                                        <th scope="col">Poli</th>
+                                        <th scope="col">Tanggal Kunjungan</th>
+                                        <th scope="col">Keluhan</th>
+                                        <th scope="col">Anamnesa</th>
+                                        <th scope="col">Alergi Makanan</th>
+                                        <th scope="col">Alergi Udara</th>
+                                        <th scope="col">Alergi Obat</th>
+                                        <th scope="col">Riwayat Alergi</th>
+                                        <th scope="col">Prognosa</th>
+                                        <th scope="col">Terapi Obat</th>
+                                        <th scope="col">Terapi Non Obat</th>
+                                        <th scope="col">BMHP</th>
+                                        <th scope="col">Diagnosa</th>
+                                        <th scope="col">Diagnosa #2</th>
+                                        <th scope="col">Diagnosa #3</th>
+                                        <th scope="col">Kesadaran</th>
+                                        <th scope="col">Suhu</th>
+                                        <th scope="col">Tinggi Badan</th>
+                                        <th scope="col">Berat Badan</th>
+                                        <th scope="col">Lingkar Pinggang</th>
+                                        <th scope="col">IMT</th>
+                                        <th scope="col">Tekanan Darah Sistole</th>
+                                        <th scope="col">Tekanan Darah Diastole</th>
+                                        <th scope="col">Tekanan Darah Respiratory</th>
+                                        <th scope="col">Tekanan Darah Heart Rate</th>
+                                        <th scope="col">Kasus Kecelakaan</th>
+                                        <th scope="col">Tanggal Kejadian</th>
+                                        <th scope="col">Lokasi Kejadian</th>
+                                        <th scope="col">Tenaga Medis</th>
+                                        <th scope="col">Pelayanan Non Kapitasi</th>
+                                        <th scope="col">Status Pulang</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($data as $row)
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>Mark</td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
+                                        <th scope="row">{{$loop->iteration}}</th>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="{{route('pelayanan.edit',$row)}}" class="btn btn-sm btn-primary mr-2">Edit</a>
+                                                <a href="{{route('pelayanan.hapus',$row)}}" class="btn btn-sm btn-primary show_confirm">Hapus</a>
+                                            </div>
+                                        </td>
+                                        <td>{{$row->jenis_kunjungan}}</td>
+                                        <td>{{ ($row->pasien_id != null) ?  $row->pasien->nama : ''}}</td>
+                                        <td>{{($row->pendaftaran_id != null) ? $row->pendaftaran->no_pendaftaran :''}}</td>
+                                        <td>{{$row->perawatan}}</td>
+                                        <td>{{$row->poli}}</td>
+                                        <td>{{$row->tanggal_kunjungan}}</td>
+                                        <td>{{$row->keluhan}}</td>
+                                        <td>{{$row->anamnesa}}</td>
+                                        <td>{{$row->alergi_makanan}}</td>
+                                        <td>{{$row->alergi_udara}}</td>
+                                        <td>{{$row->alergi_obat}}</td>
+                                        <td>{{$row->riwayat_alergi}}</td>
+                                        <td>{{$row->prognosa}}</td>
+                                        <td>{{$row->terapi_obat}}</td>
+                                        <td>{{$row->terapi_nonobat}}</td>
+                                        <td>{{$row->bmhp}}</td>
+                                        <td>{{$row->diagnosa}}</td>
+                                        <td>{{$row->diagnosa_dua}}</td>
+                                        <td>{{$row->diagnosa_tiga}}</td>
+                                        <td>{{$row->kesadaran}}</td>
+                                        <td>{{$row->suhu}}</td>
+                                        <td>{{$row->pemeriksaan_tinggi}}</td>
+                                        <td>{{$row->pemeriksaan_berat}}</td>
+                                        <td>{{$row->pemeriksaan_lingkar}}</td>
+                                        <td>{{$row->pemeriksaan_imt}}</td>
+                                        <td>{{$row->td_sistole}}</td>
+                                        <td>{{$row->td_diastole}}</td>
+                                        <td>{{$row->td_respiratory}}</td>
+                                        <td>{{$row->td_heartrate}}</td>
+                                        <td>{{$row->kasus_kll}}</td>
+                                        <td>{{$row->tanggal_kejadian}}</td>
+                                        <td>{{$row->lokasi_kejadian}}</td>
+                                        <td>{{$row->tenaga_medis}}</td>
+                                        <td>{{$row->pelayanan_non_kapitasi}}</td>
+                                        <td>{{$row->status_pulang}}</td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Larry</td>
-                                        <td>the Bird</td>
-                                        <td>@twitter</td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

@@ -31,6 +31,9 @@ Route::get('/pasien/hapus/{pasien}', [App\Http\Controllers\PasienController::cla
 Route::get('/pelayanan', [App\Http\Controllers\PelayananController::class, 'index'])->name('pelayanan');
 Route::get('/pelayanan/tambah', [App\Http\Controllers\PelayananController::class, 'create'])->name('pelayanan.create');
 Route::post('/pelayanan/store', [App\Http\Controllers\PelayananController::class, 'store'])->name('pelayanan.store');
+Route::get('/pelayanan/edit/{pelayanan}', [App\Http\Controllers\PelayananController::class, 'edit'])->name('pelayanan.edit');
+Route::put('/pelayanan/update', [App\Http\Controllers\PelayananController::class, 'update'])->name('pelayanan.update');
+Route::get('/pelayanan/hapus/{pelayanan}', [App\Http\Controllers\PelayananController::class, 'hapus'])->name('pelayanan.hapus');
 
 Route::get('/pendaftaran', [App\Http\Controllers\PendaftaranController::class, 'index'])->name('pendaftaran');
 Route::get('/pendaftaran/tambah', [App\Http\Controllers\PendaftaranController::class, 'create'])->name('pendaftaran.create');

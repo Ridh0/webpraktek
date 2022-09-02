@@ -15,6 +15,7 @@ class Pelayanan extends Model
         'perawatan',
         'poli',
         'tanggal_kunjungan',
+        'waktu_kunjungan',
         'keluhan',
         'anamnesa',
         'alergi_makanan',
@@ -45,4 +46,16 @@ class Pelayanan extends Model
         'pelayanan_non_kapitasi',
         'status_pulang',
      ];
+
+     public function pendaftaran()
+     {
+         return $this->belongsTo(Pendaftaran::class);
+
+     }
+
+     public function pasien()
+     {
+         return $this->belongsTo(Pasien::class);
+
+     }
 }
