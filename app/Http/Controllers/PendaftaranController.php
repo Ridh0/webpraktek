@@ -35,16 +35,19 @@ class PendaftaranController extends Controller
         $search = $request->input('search');
         $posts = Pasien::where('no_pendaftaran',$search)->get() ;
         $datasearch =$search;
+        $pelayanan = Pelayanan::where('id',$datasearch)->get();
         if($search){
 
             $datasearch =$search;
+            $pelayanan = Pelayanan::where('id',$datasearch)->get();
             $posts = Pasien::query()
-            ->where('no_pendaftaran', 'LIKE', "%{$search}%")
+            ->where('bpjs',$search)
+            ->orwhere('rekam_medis',$search)
             ->get();
         }
         $pendaftaran = Pendaftaran::latest()->first();
             $pid = $pendaftaran->id;
-        return view('admin.pendaftaran.create',compact('posts','datasearch','pendaftaran','pid'));
+        return view('admin.pendaftaran.create',compact('posts','datasearch','pendaftaran','pid','pelayanan'));
 
     }
 

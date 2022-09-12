@@ -14,9 +14,17 @@
     <div class="page-inner mt--5">
         <div class="card">
             <div class="card-header">
-                <div class="row">
-                    <div class="col-sm">
-                        <a href="{{route('pelayanan.create')}}" class="btn btn-primary">Tambah Data</a>
+                <div class="card-head-row">
+
+                    <div class="card-title">User Statistics</div>
+                    <div class="card-tools">
+                        <a href="{{route('pelayanan.create')}}" class="btn btn-info btn-border btn-round btn-sm mr-2">
+                            <span class="btn-label">
+                                <i class="fa fa-plus"></i>
+                            </span>
+                            Tambah Data
+                        </a>
+                     
                     </div>
                 </div>
             </div>

@@ -11,7 +11,7 @@
             </ul>
         </nav>
         <div class="copyright ml-auto">
-            dr Icon Horizon
+            dr Icon Harizon
         </div>
     </div>
 </footer>

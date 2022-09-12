@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PasienController extends Controller
-{  
+{
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth']);
     }
     /**
      * Display a listing of the resource.
@@ -19,8 +19,9 @@ class PasienController extends Controller
      */
     public function index()
     {
+
         $data = Pasien::all();
-        return view('admin.pasien.index',compact('data'));
+        return view('admin.pasien.index', compact('data'));
     }
 
     /**
@@ -31,13 +32,22 @@ class PasienController extends Controller
     public function create()
     {
         $pasien = Pasien::all();
-        $no_pendaftaran =1;
-        foreach($pasien as $row){
-            
+        $no_pendaftaran = 1;
+        foreach ($pasien as $row) {
+
             $id = $row->no_pendaftaran;
-            $no_pendaftaran = $id + 1 ;
+            $norm = $row->rekam_medis;
+            $noUrut = (int) substr($norm, 0, 6);
+            $noUrut++;
+            $no_rms =  sprintf("%06s", $noUrut);
+            $no_rm =  sprintf("%02s", $noUrut);
+            $no_rm1 = substr($no_rms, 0, 2);    
+            $no_rm2 = substr($no_rms, 2, 2);    
+            $no_rm3 = substr($no_rms, 4, 2);    
+
+            $no_pendaftaran = $id + 1;
         }
-        return view('admin.pasien.create',compact('no_pendaftaran'));
+        return view('admin.pasien.create', compact('no_pendaftaran', 'no_rm1', 'no_rm2', 'no_rm3','no_rms'));
     }
 
     /**
@@ -57,9 +67,9 @@ class PasienController extends Controller
             'nohp' => 'required',
             'rekam_medis' => 'required',
         ]);
-       
+
         Pasien::create([
-           'nama' => $request->nama,
+            'nama' => $request->nama,
             'bpjs' => $request->bpjs,
             'tgl' => $request->tgl,
             'no_pendaftaran' => $request->no_pendaftaran,
@@ -67,7 +77,7 @@ class PasienController extends Controller
             'nohp' => $request->nohp,
             'rekam_medis' => $request->rekam_medis,
         ]);
-        return back()->with('success','ss' );
+        return back()->with('success', 'ss');
     }
 
     /**
@@ -89,7 +99,7 @@ class PasienController extends Controller
      */
     public function edit(Pasien $pasien)
     {
-        return view('admin.pasien.edit',compact('pasien'));
+        return view('admin.pasien.edit', compact('pasien'));
     }
 
     /**
@@ -101,7 +111,7 @@ class PasienController extends Controller
      */
     public function update(Request $request, Pasien $pasien)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'nama' => 'required',
             'bpjs' => 'required',
             'tgl' => 'required',
@@ -110,7 +120,7 @@ class PasienController extends Controller
             'rekam_medis' => 'required',
         ]);
         $data = Pasien::find($request->id);
-      
+
         $data->update([
             'nama' => $request->nama,
             'bpjs' => $request->bpjs,
@@ -128,11 +138,11 @@ class PasienController extends Controller
      * @param  \App\Models\Pasien  $pasien
      * @return \Illuminate\Http\Response
      */
-    public function hapus( $pasien)
+    public function hapus($pasien)
     {
         $mahasiswa = Pasien::find($pasien);
         $mahasiswa->delete();
         Alert::success('Berhasil', 'Berhasil Menghapus Data !');
-        return back()->with('success', "Data telah berhasil dideleted !!."); 
+        return back()->with('success', "Data telah berhasil dideleted !!.");
     }
 }

@@ -19,7 +19,7 @@
             },
             custom: {
                 "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"],
-                urls: ['http://127.0.0.1:8000/assets/css/fonts.min.css']
+                urls: ['http://127.0.0.1:8003/assets/css/fonts.min.css']
             },
             active: function() {
                 sessionStorage.fonts = true;
@@ -81,45 +81,45 @@
     <script src="{{asset('assets/js/core/jquery.3.2.1.min.js')}}"></script>
     <script src="{{asset('assets/js/atlantis.min.js')}}"></script>
     <script type="text/javascript">
-    $(document).ready(function() {
+        $(document).ready(function() {
 
-        $("#foreign_checkbox").click(function() {
-            if($('#foreign_checkbox').is(':checked')) { 
-                $('#collapseExamples').collapsing ();
-            } else {
-                $('#collapseExamples').collapse ();
-            }
-        });
+            $("#foreign_checkbox").click(function() {
+                if ($('#foreign_checkbox').is(':checked')) {
+                    $('#collapseExamples').collapsing();
+                } else {
+                    $('#collapseExamples').collapse();
+                }
+            });
 
-        $('#additional_foreign').click(function() {
-            alert('This click function works');
+            $('#additional_foreign').click(function() {
+                alert('This click function works');
+            });
         });
-    });
-</script>
+    </script>
     <script>
-        if( $('#el')[0].checked ){ 
-    alert("Checkbox is checked!");
-}
+        if ($('#el')[0].checked) {
+            alert("Checkbox is checked!");
+        }
 
-// Using get
-if( $('#el').get(0).checked ){
-    alert("Checkbox is checked!");
-}
+        // Using get
+        if ($('#el').get(0).checked) {
+            alert("Checkbox is checked!");
+        }
         if ($('#el').attr('checked')) {
             alert("Is checked!");
         }
-        if( $('#el:checked').length)  {
-    alert('Is checked!');
-}
-const alertStatus = (e) => {
-  if ($("#el").is(":checked")) {
-    alert("Is checked");
-  } else {
-    alert("Is not checked");
-  }
-};
+        if ($('#el:checked').length) {
+            alert('Is checked!');
+        }
+        const alertStatus = (e) => {
+            if ($("#el").is(":checked")) {
+                alert("Is checked");
+            } else {
+                alert("Is not checked");
+            }
+        };
 
-// Attaching the click event on the button
+        // Attaching the click event on the button
     </script>
     <script src="{{asset('assets/js/core/popper.min.js')}}"></script>
     <script src="{{asset('assets/js/core/bootstrap.min.js')}}"></script>
@@ -276,15 +276,13 @@ const alertStatus = (e) => {
     </script>
     <script>
         $(document).ready(function() {
-            $('#datatable').DataTable(
-                {
-                    scrollY:        300,
-        scrollCollapse: true,
-          scroller:       true,
-        scrollX: true,
-        fixedHeader: true
-                }
-            );
+            $('#datatable').DataTable({
+                scrollY: 300,
+                scrollCollapse: true,
+                scroller: true,
+                scrollX: true,
+                fixedHeader: true
+            });
         });
     </script>
 </body>

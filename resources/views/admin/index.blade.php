@@ -5,7 +5,16 @@
 		<div class="page-inner py-5">
 			<div class="d-flex align-items-left align-items-md-center flex-column mb-2 flex-md-row">
 				<div>
-					<h2 class="text-white pb-2 fw-bold">Welcome !</h2>
+					<style>
+						.badge{
+							border: 0px solid #ddd;
+						}
+					</style>
+					<h2 class="text-white pb-2 fw-bold">Welcome !
+						<span class="badge bg-success">
+								{{auth()->user()->name}}
+						</span>
+					</h2>
 				</div>
 
 			</div>
@@ -13,82 +22,64 @@
 	</div>
 	<div class="page-inner mt--5">
 		<div class="row mt--2">
-			<div class="col-sm-6 col-md-3">
-				<div class="card card-stats card-success card-round">
-					<div class="card-body">
-						<div class="row">
-							<div class="col-5">
-								<div class="icon-big text-center">
-									<i class="flaticon-users"></i>
+			<div class="col-sm-6 col-md-4">
+				<div class="card card-stats card-round">
+					<div class="card-body ">
+						<div class="row align-items-center">
+							<div class="col-icon">
+								<div class="icon-big text-center icon-primary bubble-shadow-small">
+									<i class="fas fa-users"></i>
 								</div>
 							</div>
-							<div class="col-7 col-stats">
+							<div class="col col-stats ml-3 ml-sm-0">
 								<div class="numbers">
-									<p class="card-category">Visitors</p>
-									<h4 class="card-title">1,294</h4>
+									<p class="card-category">Pasien</p>
+									<h4 class="card-title">{{$countpasien}}</h4>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-6 col-md-3">
-				<div class="card card-stats card-success card-round">
-					<div class="card-body">
-						<div class="row">
-							<div class="col-5">
-								<div class="icon-big text-center">
-									<i class="flaticon-users"></i>
+			<div class="col-sm-6 col-md-4">
+				<div class="card card-stats card-round">
+					<div class="card-body ">
+						<div class="row align-items-center">
+							<div class="col-icon">
+								<div class="icon-big text-center icon-primary bubble-shadow-small">
+									<i class="fas fa-vial"></i>
 								</div>
 							</div>
-							<div class="col-7 col-stats">
+							<div class="col col-stats ml-3 ml-sm-0">
 								<div class="numbers">
-									<p class="card-category">Visitors</p>
-									<h4 class="card-title">1,294</h4>
+									<p class="card-category">Pelayanan</p>
+									<h4 class="card-title">{{$countpelayanan}}</h4>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-6 col-md-3">
-				<div class="card card-stats card-success card-round">
-					<div class="card-body">
-						<div class="row">
-							<div class="col-5">
-								<div class="icon-big text-center">
-									<i class="flaticon-users"></i>
+			<div class="col-sm-6 col-md-4">
+				<div class="card card-stats card-round">
+					<div class="card-body ">
+						<div class="row align-items-center">
+							<div class="col-icon">
+								<div class="icon-big text-center icon-primary bubble-shadow-small">
+									<i class="fas fa-user-plus"></i>
 								</div>
 							</div>
-							<div class="col-7 col-stats">
+							<div class="col col-stats ml-3 ml-sm-0">
 								<div class="numbers">
-									<p class="card-category">Visitors</p>
-									<h4 class="card-title">1,294</h4>
+									<p class="card-category">Pendaftaran</p>
+									<h4 class="card-title">{{$countpendaftaran}}</h4>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-6 col-md-3">
-				<div class="card card-stats card-success card-round">
-					<div class="card-body">
-						<div class="row">
-							<div class="col-5">
-								<div class="icon-big text-center">
-									<i class="flaticon-users"></i>
-								</div>
-							</div>
-							<div class="col-7 col-stats">
-								<div class="numbers">
-									<p class="card-category">Visitors</p>
-									<h4 class="card-title">1,294</h4>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+
 		</div>
 
 	</div>

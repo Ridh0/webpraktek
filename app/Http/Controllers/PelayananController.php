@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pasien;
 use App\Models\Pelayanan;
+use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -28,9 +30,24 @@ class PelayananController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('admin.pelayanan.create');
+        $search = $request->input('search');
+        $posts = Pasien::where('no_pendaftaran',$search)->get() ;
+        $datasearch =$search;
+        $pelayanan = Pelayanan::where('id',$datasearch)->get();
+        if($search){
+
+            $datasearch =$search;
+            $pelayanan = Pelayanan::where('id',$datasearch)->get();
+            $posts = Pasien::query()
+            ->where('no_pendaftaran', 'LIKE', "%{$search}%")
+            ->get();
+        }
+        $pendaftaran = Pendaftaran::latest()->first();
+            $pid = $pendaftaran->id;
+        return view('admin.pelayanan.create',compact('posts','datasearch','pendaftaran','pid','pelayanan'));
+
     }
 
     /**

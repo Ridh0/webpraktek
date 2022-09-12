@@ -16,11 +16,24 @@
     <div class="page-inner mt--5">
         <div class="card">
             <div class="card-header">
-                <div class="row">
-                    <div class="col-sm">
-                        <a href="{{route('pasien.create')}}" class="btn btn-primary">Tambah Data</a>
+                <div class="card-head-row">
+                    <div class="card-title">User Statistics</div>
+                    <div class="card-tools">
+                        <a href="{{route('pasien.create')}}" class="btn btn-info btn-border btn-round btn-sm mr-2">
+                            <span class="btn-label">
+                                <i class="fa fa-plus"></i>
+                            </span>
+                            Tambah Data
+                        </a>
+                        <a href="#" class="btn btn-info btn-border btn-round btn-sm">
+                            <span class="btn-label">
+                                <i class="fa fa-print"></i>
+                            </span>
+                            Print
+                        </a>
                     </div>
                 </div>
+              
             </div>
             <div class="card-body">
                 <div class="row">
@@ -45,8 +58,8 @@
                                         <th scope="row">{{$loop->iteration}}</th>
                                         <td>
                                             <div class="d-flex">
-                                             <a href="{{route('pasien.edit',$row)}}" class="btn btn-sm btn-primary mr-2">Edit</a>
-                                             <a href="{{route('pasien.hapus',$row)}}" class="btn btn-sm btn-primary show_confirm">Hapus</a>
+                                                <a href="{{route('pasien.edit',$row)}}" class="btn btn-sm btn-primary mr-2">Edit</a>
+                                                <a href="{{route('pasien.hapus',$row)}}" class="btn btn-sm btn-primary show_confirm">Hapus</a>
                                             </div>
                                         </td>
                                         <td>{{$row->nama}}</td>
@@ -71,7 +84,7 @@
 @endsection
 @section('scripts')
 <script>
-        $(document).ready(function() {
+    $(document).ready(function() {
         $('.show_confirm').on('click', function(event) {
             event.preventDefault();
             const url = $(this).attr('href');

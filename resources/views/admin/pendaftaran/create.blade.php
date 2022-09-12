@@ -13,6 +13,7 @@
     </div>
     <div class="page-inner mt--5">
         <div class="row">
+
             <div class="col-md-7">
                 <div class="card">
                     <div class="card-header">
@@ -25,76 +26,56 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <form method="post" id="pendaftaran-form" action="{{route('pendaftaran.store')}}">
-                                    @csrf
-                                    @method('post')
-                                    <div class="form-group row">
-                                        <label for="inputtanggaldaftar" class="col-sm-3 col-form-label">Tanggal Daftar</label>
-                                        <div class="col-sm-9">
-                                            <input type="date" name="tgl_daftar" class="form-control" id="inputtanggaldaftar" placeholder="No BPJS">
-                                        </div>
+                                <div class="form-group row">
+                                    <label for="inputtanggaldaftar" class="col-sm-3 col-form-label">Tanggal Daftar</label>
+                                    <div class="col-sm-9">
+                                        <input type="date" name="tgl_daftar" class="form-control" id="inputtanggaldaftar" placeholder="No BPJS">
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="inputpoli" class="col-sm-3 col-form-label">Poli</label>
-                                        <div class="col-sm-9">
-                                            <select name="poli" id="inputpoli" class="form-control">
-                                                <option value="Poli Umum">Poli Umum</option>
-                                                <option value="Poli Khusus">Poli Khusus</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputfaskes" class="col-sm-3 col-form-label">Faskes</label>
-                                        <div class="col-sm-9">
-                                            <select name="faskes" id="inputfaskes" class="form-control">
-                                                <option value="driconhorizon">dr.Icon Horizon (009OU074)</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <fieldset class="form-group">
-                                        <div class="row">
-
-                                            <legend class="col-form-label col-sm-3 fw-bold">Sumber Data</legend>
-                                            <div class="col-sm-9 d-flex">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="sumber_data" id="gridRadios1" value="No Antrian">
-                                                    <label class="form-check-label" for="gridRadios1">
-                                                        No Antrian
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="sumber_data" id="gridRadios2" value="No Kartu">
-                                                    <label class="form-check-label" for="gridRadios2">
-                                                        No Kartu
-                                                    </label>
-                                                </div>
+                                </div>
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                        <legend class="col-form-label col-sm-3 fw-bold">Sumber Data</legend>
+                                        <div class="col-sm-9 d-flex">
+                                            <div class="form-check">
+                                                <input class="form-check-input" checked type="radio" name="sumber_data" id="gridRadios1" value="No Antrian">
+                                                <label class="form-check-label" for="gridRadios1">
+                                                    Baru
+                                                </label>
                                             </div>
                                         </div>
-                                    </fieldset>
-                                    @if($posts->isNotEmpty())
-                                    <input type="hidden" name="no_pendaftaran" value="{{$datasearch}}">
-                                    @endif
-                                </form>
-
+                                    </div>
+                                </fieldset>
                                 <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-3 col-form-label">No Pendaftaran</label>
+                                    <label for="inputPassword3" class="col-sm-3 col-form-label">No Medical Record</label>
                                     <div class="col-sm-9">
                                         <form action="{{ route('pendaftaran.create') }}" method="GET">
                                             @csrf
                                             <div class="input-group mb-3">
-                                                <span class="input-group-text" id="basic-addon1">A</span>
-                                                <input type="text" name="search" class="form-control" value="" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                                <button class="btn btn-primary" type="submit" id="button-addon2"><i class="fa fa-search"></i></button>
+
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">A</span>
+                                                </div>
+                                                <input type="text" name="search" class="form-control" value="" placeholder="" aria-label="No Pendaftaran" aria-describedby="basic-addon1">
+                                                <div class="input-group-prepend">
+                                                    <button class="btn btn-primary" type="submit" id="button-addon2"><i class="fa fa-search"></i></button>
+                                                </div>
 
                                             </div>
                                         </form>
                                     </div>
                                 </div>
+                                <style>
+                                    .no-border {
+                                        border: 0;
+                                        box-shadow: none;
+                                        /* You may want to include this as bootstrap applies these styles too */
+                                    }
+                                </style>
                                 @if($posts->isNotEmpty())
-                                <input type="text" name="no_pendaftaran" value="{{$datasearch}}">
+                                <input type="hidden" name="no_pendaftaran" value="{{$datasearch}}">
                                 @foreach ($posts as $post)
                                 <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-3 col-form-label">No.Kartu BPJS</label>
+                                    <label for="inputPassword3" class="col-sm-3 col-form-label">No Kartu BPJS</label>
                                     <div class="col-sm-3">
                                         <p class="mt-2">{{$post->bpjs}}</p>
                                     </div>
@@ -104,13 +85,23 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-3 col-form-label">Tanggal Lahir</label>
+                                    <label for="inputPassword3" class="col-sm-3 col-form-label">Status Peserta</label>
                                     <div class="col-sm-3">
                                         <p class="mt-2">{{$post->tgl}}</p>
                                     </div>
+                                    <label for="inputPassword3" class="col-sm-3 col-form-label">Tanggal Lahir</label>
+                                    <div class="col-sm-3">
+                                        <p class="mt-2">{{$post->kelamin}}</p>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-3 col-form-label">Kelamin</label>
                                     <div class="col-sm-3">
                                         <p class="mt-2">{{$post->kelamin}}</p>
+                                    </div>
+                                    <label for="inputPassword3" class="col-sm-3 col-form-label">PPK UMUM</label>
+                                    <div class="col-sm-3">
+                                        <i class="fa fa-check-circle mt-2 text-success" aria-hidden="true"></i>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -127,6 +118,13 @@
                                 @else
 
                                 @endif
+                                
+                                @if($posts->isNotEmpty())
+                                <input type="hidden" name="no_pendaftaran" value="{{$datasearch}}">
+                                @endif
+
+
+
                                 <div class="form-group row">
                                     <div class="col-sm-10">
                                         <button type="button" class="btn btn-primary" onclick="my_button_click_handler()">Simpan</button>
@@ -153,7 +151,7 @@
                                     @csrf
                                     @method('post')
                                     <fieldset class="form-group">
-                                        <input type="text" name="pendaftaran_id" class="form-control" value="{{$pid}}">
+                                        <input type="hidden" name="pendaftaran_id" class="form-control" value="{{$pid}}">
                                         <div class="row">
                                             <legend class="col-form-label col-sm-3 fw-bold">Jenis Kunjungan</legend>
                                             <div class="col-sm-9 d-flex">
@@ -230,7 +228,9 @@
                                         <label class="col-sm-3 col-form-label" for="autoSizingInputGroup">Riwayat Alergi</label>
                                         <div class="col-sm-9">
                                             <div class="input-group">
-                                                <div class="input-group-text">Makanan</div>
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">Makanan</span>
+                                                </div>
                                                 <select name="alergi_makanan" class="form-control" id="">
                                                     <option value="1">1</option>
                                                     <option value="1">2</option>
@@ -238,7 +238,9 @@
                                                 </select>
                                             </div>
                                             <div class="input-group mt-3">
-                                                <div class="input-group-text">Udara</div>
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Udara</div>
+                                                </div>
                                                 <select name="alergi_udara" class="form-control" id="">
                                                     <option value="1">1</option>
                                                     <option value="1">2</option>
@@ -246,7 +248,9 @@
                                                 </select>
                                             </div>
                                             <div class="input-group mt-3">
-                                                <div class="input-group-text">Obat-obatan</div>
+                                                <div class="input-group-prepend">
+                                                    <div class="input-group-text">Obat-obatan</div>
+                                                </div>
                                                 <select name="alergi_obat" class="form-control" id="">
                                                     <option value="1">1</option>
                                                     <option value="1">2</option>
@@ -264,7 +268,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                  
+
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-3 col-form-label">Terapi Obat</label>
                                         <div class="col-sm-9">
@@ -289,7 +293,7 @@
                                             <textarea name="diagnosa" id="" class="form-control" cols="40" rows="2"></textarea>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input"  type="checkbox" value="1">
+                                                    <input class="form-check-input" type="checkbox" value="1">
                                                     <span class="form-check-sign">Peserta berpotensi menderita penyakit akibat kerja</span>
                                                 </label>
                                             </div>
@@ -299,14 +303,14 @@
                                         <label for="inputEmail3" class="col-sm-3 col-form-label">Diagnosa #2 <br> (Sekunder)</label>
                                         <div class="col-sm-9">
                                             <textarea name="diagnosa_dua" id="" class="form-control" cols="40" rows="2"></textarea>
-                                           
+
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-3 col-form-label">Diagnosa #3 <br> (Sekunder)</label>
                                         <div class="col-sm-9">
                                             <textarea name="diagnosa_tiga" id="" class="form-control" cols="40" rows="2"></textarea>
-                                           
+
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -405,7 +409,7 @@
                                             <legend class="col-form-label col-sm-3 fw-bold">Kasus KLL</legend>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" name="kasus_kll" data-toggle='collapse' data-target='#collapsediv1' type="checkbox" value="">
+                                                    <input class="form-check-input" name="kasus_kll" data-toggle='collapse' data-target='#collapsediv1' type="checkbox" value="1">
                                                     <span class="form-check-sign">Kecelakaan Lalu Lintas</span>
                                                 </label>
                                             </div>
@@ -454,16 +458,16 @@
                                         <label for="inputEmail3" class="col-sm-3 col-form-label">Status Pulang</label>
                                         <div class="col-sm-9">
                                             <select name="status_pulang" id="" class="form-control">
-                                                <option></option>
-                                                <option value="1">Pulang</option>
+                                                <option value="Pulang">Pulang</option>
+                                                <option value="Belum Pulang">Belum Pulang</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                    <div class="col-sm-10">
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <div class="col-sm-10">
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                        </div>
                                     </div>
-                                </div>
                                 </form>
 
                             </div>
@@ -472,13 +476,6 @@
                     </div>
                 </div>
             </div>
-            <script>
-                function my_button_click_handler() {
-                    alert('Button Clcked');
-                    var form = document.getElementById("pendaftaran-form");
-                    form.submit();
-                }
-            </script>
             <div class="col-md-5">
                 <div class="card">
                     <div class="card-header">
@@ -490,35 +487,25 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-12">
-                                <table class="table table-striped">
+                            <div class="col-md-12 table-responsive">
+                                <table id="datatable" class="table table-striped">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">First</th>
-                                            <th scope="col">Last</th>
-                                            <th scope="col">Handle</th>
+                                            <th scope="col">Nama</th>
+                                            <th scope="col">Diagnosa</th>
+                                            <th scope="col">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach($pelayanan as $row)
                                         <tr>
                                             <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
+                                            <td>{{($row->diagnosa)}}</td>
+                                            <td>{{($row->pasien->nama)}}</td>
+                                            <td>{{($row->status_pulang)}}</td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">3</th>
-                                            <td>Larry</td>
-                                            <td>the Bird</td>
-                                            <td>@twitter</td>
-                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -527,10 +514,14 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
-
+        <script>
+            function my_button_click_handler() {
+                alert('Button Clcked');
+                var form = document.getElementById("pendaftaran-form");
+                form.submit();
+            }
+        </script>
     </div>
 </div>
 @endsection
