@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pasien;
 use App\Models\Pelayanan;
 use App\Models\Pendaftaran;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -33,21 +34,27 @@ class PendaftaranController extends Controller
     public function create(Request $request)
     {
         $search = $request->input('search');
+        $norekam = Pasien::where('tanggal');
+        $time = Carbon::now();
+        $times = Carbon::parse($time)->format('Y-m-d');
         $posts = Pasien::where('no_pendaftaran',$search)->get() ;
         $datasearch =$search;
         $pelayanan = Pelayanan::where('id',$datasearch)->get();
         if($search){
 
-            $datasearch =$search;
-            $pelayanan = Pelayanan::where('id',$datasearch)->get();
             $posts = Pasien::query()
             ->where('bpjs',$search)
             ->orwhere('rekam_medis',$search)
             ->get();
+            foreach ($posts as $row){
+                
+                $datasearch =$row->id;
+            }
+            $pelayanan = Pendaftaran::where('id',$datasearch)->get();
         }
         $pendaftaran = Pendaftaran::latest()->first();
             $pid = $pendaftaran->id;
-        return view('admin.pendaftaran.create',compact('posts','datasearch','pendaftaran','pid','pelayanan'));
+        return view('admin.pendaftaran.create',compact('times','posts','datasearch','pendaftaran','pid','pelayanan'));
 
     }
 

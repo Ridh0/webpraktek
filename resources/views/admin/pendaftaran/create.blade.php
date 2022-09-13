@@ -14,7 +14,7 @@
     <div class="page-inner mt--5">
         <div class="row">
 
-            <div class="col-md-7">
+            <div class="col-md-5">
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
@@ -29,7 +29,7 @@
                                 <div class="form-group row">
                                     <label for="inputtanggaldaftar" class="col-sm-3 col-form-label">Tanggal Daftar</label>
                                     <div class="col-sm-9">
-                                        <input type="date" name="tgl_daftar" class="form-control" id="inputtanggaldaftar" placeholder="No BPJS">
+                                        <input type="date" value="{{$times}}" name="tgl_daftar" class="form-control" id="inputtanggaldaftar" placeholder="No BPJS">
                                     </div>
                                 </div>
                                 <fieldset class="form-group">
@@ -46,15 +46,13 @@
                                     </div>
                                 </fieldset>
                                 <div class="form-group row">
-                                    <label for="inputPassword3" class="col-sm-3 col-form-label">No Medical Record</label>
+                                    <label for="inputPassword3" class="col-sm-3 col-form-label">No Pencarian</label>
                                     <div class="col-sm-9">
                                         <form action="{{ route('pendaftaran.create') }}" method="GET">
                                             @csrf
                                             <div class="input-group mb-3">
 
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="basic-addon1">A</span>
-                                                </div>
+                                               
                                                 <input type="text" name="search" class="form-control" value="" placeholder="" aria-label="No Pendaftaran" aria-describedby="basic-addon1">
                                                 <div class="input-group-prepend">
                                                     <button class="btn btn-primary" type="submit" id="button-addon2"><i class="fa fa-search"></i></button>
@@ -72,7 +70,7 @@
                                     }
                                 </style>
                                 @if($posts->isNotEmpty())
-                                <input type="hidden" name="no_pendaftaran" value="{{$datasearch}}">
+                                <input type="text" name="no_pendaftaran" value="{{$datasearch}}">
                                 @foreach ($posts as $post)
                                 <div class="form-group row">
                                     <label for="inputPassword3" class="col-sm-3 col-form-label">No Kartu BPJS</label>
@@ -109,7 +107,7 @@
                                     <div class="col-sm-3">
                                         <p class="mt-2">{{$post->nohp}}</p>
                                     </div>
-                                    <label for="inputPassword3" class="col-sm-3 col-form-label">No Rekam Medis</label>
+                                    <label for="inputPassword3" class="col-sm-3 col-form-label">No Rekam <br> Medis</label>
                                     <div class="col-sm-3">
                                         <p class="mt-2">{{$post->rekam_medis}}</p>
                                     </div>
@@ -135,15 +133,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-sm">
-                                <h2>
-                                    Pelayanan
-                                </h2>
-                            </div>
-                        </div>
-                    </div>
+                  
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -152,9 +142,9 @@
                                     @method('post')
                                     <fieldset class="form-group">
                                         <input type="hidden" name="pendaftaran_id" class="form-control" value="{{$pid}}">
-                                        <div class="row">
-                                            <legend class="col-form-label col-sm-3 fw-bold">Jenis Kunjungan</legend>
-                                            <div class="col-sm-9 d-flex">
+                                        <div class="row d-flex justify-content-between">
+                                            <legend class="col-form-label col-sm-4 fw-bold">Jenis Kunjungan</legend>
+                                            <div class="col-sm-8 ">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="jenis_kunjungan" id="gridRadiossakit" value="Kunjungan Sakit">
                                                     <label class="form-check-label" for="gridRadiossakit">
@@ -171,9 +161,9 @@
                                         </div>
                                     </fieldset>
                                     <fieldset class="form-group">
-                                        <div class="row">
-                                            <legend class="col-form-label col-sm-3 fw-bold">Perawatan</legend>
-                                            <div class="col-sm-9 d-flex">
+                                        <div class="row d-flex justify-content-between">
+                                            <legend class="col-form-label col-sm-4 fw-bold">Perawatan</legend>
+                                            <div class="col-sm-8 ">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="radio" name="perawatan" id="gridRadiosjalan" value="Rawat Jalan">
                                                     <label class="form-check-label" for="gridRadiosjalan">
@@ -196,145 +186,22 @@
                                         </div>
                                     </fieldset>
                                     <div class="form-group row">
-                                        <label for="basic-url" class="col-sm-3 col-form-label">Tanggal Kunjungan</label>
+                                        <label for="inputpoli" class="col-sm-3 col-form-label">Poli</label>
                                         <div class="col-sm-9">
-                                            <div class="input-group mb-3">
-
-                                                <input type="date" name="tgl_kunjungan" value="<?php echo date('Y-m-d'); ?>" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-                                                <input type="time" name="wkt_kunjungan" class="form-control" id="appt" name="appt" min="09:00" max="18:00">
-
-                                            </div>
+                                            <select name="poli" id="inputpoli" class="form-control">
+                                                <option value="Poli Umum">Poli Umum</option>
+                                                <option value="Poli Khusus">Poli Khusus</option>
+                                            </select>
                                         </div>
                                     </div>
-                                    <style>
-                                        textarea {
-                                            font-size: 15px;
-                                            width: 100%;
-                                        }
-                                    </style>
                                     <div class="form-group row">
                                         <label for="inputEmail3" class="col-sm-3 col-form-label">Keluhan</label>
                                         <div class="col-sm-9">
                                             <textarea name="keluhan" id="" class="form-control" cols="40" rows="2"></textarea>
                                         </div>
                                     </div>
+                                    <h2>Pemeriksaan Fisik</h2>
                                     <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Anamnesa</label>
-                                        <div class="col-sm-9">
-                                            <textarea name="anamnesa" id="" class="form-control" cols="40" rows="2"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="autoSizingInputGroup">Riwayat Alergi</label>
-                                        <div class="col-sm-9">
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="basic-addon1">Makanan</span>
-                                                </div>
-                                                <select name="alergi_makanan" class="form-control" id="">
-                                                    <option value="1">1</option>
-                                                    <option value="1">2</option>
-                                                    <option value="1">3</option>
-                                                </select>
-                                            </div>
-                                            <div class="input-group mt-3">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Udara</div>
-                                                </div>
-                                                <select name="alergi_udara" class="form-control" id="">
-                                                    <option value="1">1</option>
-                                                    <option value="1">2</option>
-                                                    <option value="1">3</option>
-                                                </select>
-                                            </div>
-                                            <div class="input-group mt-3">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Obat-obatan</div>
-                                                </div>
-                                                <select name="alergi_obat" class="form-control" id="">
-                                                    <option value="1">1</option>
-                                                    <option value="1">2</option>
-                                                    <option value="1">3</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Prognosa</label>
-                                        <div class="col-sm-9">
-                                            <select name="prognosa" id="" class="form-control">
-                                                <option value="Example 1">Example 1</option>
-                                                <option value="Example 2">Example 2</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Terapi Obat</label>
-                                        <div class="col-sm-9">
-                                            <textarea name="terapi_obat" id="" class="form-control" cols="40" rows="2"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Terapi Non Obat</label>
-                                        <div class="col-sm-9">
-                                            <textarea name="terapi_nonobat" id="" class="form-control" cols="40" rows="2"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">BMHP</label>
-                                        <div class="col-sm-9">
-                                            <textarea name="bmhp" id="" class="form-control" cols="40" rows="2"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Diagnosa</label>
-                                        <div class="col-sm-9">
-                                            <textarea name="diagnosa" id="" class="form-control" cols="40" rows="2"></textarea>
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" value="1">
-                                                    <span class="form-check-sign">Peserta berpotensi menderita penyakit akibat kerja</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Diagnosa #2 <br> (Sekunder)</label>
-                                        <div class="col-sm-9">
-                                            <textarea name="diagnosa_dua" id="" class="form-control" cols="40" rows="2"></textarea>
-
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Diagnosa #3 <br> (Sekunder)</label>
-                                        <div class="col-sm-9">
-                                            <textarea name="diagnosa_tiga" id="" class="form-control" cols="40" rows="2"></textarea>
-
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Kesadaran</label>
-                                        <div class="col-sm-9">
-                                            <select name="kesadaran" id="" class="form-control">
-                                                <option value="Example 1">Example 1</option>
-                                                <option value="Example 2">Example 2</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Suhu</label>
-                                        <div class="col-sm-9">
-                                            <div class="input-group mb-3">
-                                                <input type="text" name="suhu" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="basic-addon1">&deg;C</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Pemeriksaan Fisik</label>
                                         <div class="col-sm">
                                             <label for="inputEmail">Tinggi Badan</label>
                                             <div class="input-group mb-3">
@@ -369,20 +236,19 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Pemeriksaan Fisik</label>
                                         <div class="col-sm">
                                             <label for="inputEmail">Sistole</label>
                                             <div class="input-group mb-3">
                                                 <input type="text" name="td_sistole" class="form-control" aria-label="Username" aria-describedby="basic-addon1-addon1">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="basic-addon1">cm</span>
+                                                    <span class="input-group-text" id="basic-addon1">mmHg</span>
                                                 </div>
                                             </div>
                                             <label for="inputEmail">Diastole</label>
                                             <div class="input-group mb-3">
                                                 <input type="text" name="td_diastole" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="basic-addon1">cm</span>
+                                                    <span class="input-group-text" id="basic-addon1">mmHg</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -391,78 +257,19 @@
                                             <div class="input-group mb-3">
                                                 <input type="text" name="td_respiratory" class="form-control" aria-label="Username" aria-describedby="basic-addon1-addon1">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="basic-addon1">kg</span>
+                                                    <span class="input-group-text" id="basic-addon1">/ minute</span>
                                                 </div>
                                             </div>
                                             <label for="inputEmail">Heart Rate</label>
                                             <div class="input-group mb-3">
                                                 <input type="text" name="td_heartrate" class="form-control" aria-label="Username" aria-describedby="basic-addon1-addon1">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text" id="basic-addon1">kg/m2</span>
+                                                    <span class="input-group-text" id="basic-addon1">bpm</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <fieldset class="form-group">
-                                        <div class="row">
-
-                                            <legend class="col-form-label col-sm-3 fw-bold">Kasus KLL</legend>
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" name="kasus_kll" data-toggle='collapse' data-target='#collapsediv1' type="checkbox" value="1">
-                                                    <span class="form-check-sign">Kecelakaan Lalu Lintas</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="collapse" id="collapsediv1">
-                                            <div class="card card-body">
-                                                <div class="form-group row">
-                                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Tanggal Kejadian</label>
-                                                    <div class="col-sm-9">
-                                                        <input type="date" name="tanggal_kejadian" class="form-control" id="">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label for="inputEmail3" class="col-sm-3 col-form-label">Lokasi Kejadian</label>
-                                                    <div class="col-sm-9">
-                                                        <textarea name="lokasi_kejadian" id="" class="form-control" cols="40" rows="2"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </fieldset>
-                                    <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Tenaga Medis</label>
-                                        <div class="col-sm-9">
-                                            <select name="tenaga_medis" id="" class="form-control">
-                                                <option>Pilih Tenaga Medis</option>
-                                                <option value="1">22</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-4 col-form-label">Pelayanan Non Kapitasi</label>
-                                        <div class="col-sm-9">
-                                            <style>
-                                                textarea {
-                                                    font-size: 15px;
-                                                    width: 100%;
-                                                }
-                                            </style>
-                                            <textarea name="pelayanan_non_kapitasi" class="form-control" id="" cols="30" rows="10"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputEmail3" class="col-sm-3 col-form-label">Status Pulang</label>
-                                        <div class="col-sm-9">
-                                            <select name="status_pulang" id="" class="form-control">
-                                                <option value="Pulang">Pulang</option>
-                                                <option value="Belum Pulang">Belum Pulang</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                 
                                     <div class="form-group row">
                                         <div class="col-sm-10">
                                             <button type="submit" class="btn btn-primary">Simpan</button>
@@ -476,7 +283,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-7">
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
@@ -492,18 +299,28 @@
                                     <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">Nama</th>
-                                            <th scope="col">Diagnosa</th>
+                                            <th scope="col">No Kartu</th>
+                                            <th scope="col">Nama Peserta</th>
+                                            <th scope="col">Kelamin</th>
+                                            <th scope="col">Usia</th>
+                                            <th scope="col">Poli Kegiatan</th>
+                                            <th scope="col">Sumber</th>
                                             <th scope="col">Status</th>
+                                            <th scope="col">Hapus</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($pelayanan as $row)
                                         <tr>
                                             <th scope="row">1</th>
-                                            <td>{{($row->diagnosa)}}</td>
+                                            <td>{{($row->nokartu)}}</td>
                                             <td>{{($row->pasien->nama)}}</td>
-                                            <td>{{($row->status_pulang)}}</td>
+                                            <td>{{($row->kelamin)}}</td>
+                                            <td>{{($row->usia)}}</td>
+                                            <td>{{($row->poli)}}</td>
+                                            <td>{{($row->sumber_data)}}</td>
+                                            <td>{{($row->status)}}</td>
+                                            <td>{{($row->status)}}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>
